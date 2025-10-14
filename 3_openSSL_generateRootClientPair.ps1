@@ -2,6 +2,7 @@
 # WARNING - NOT FOR THOSE WITHOUT COMPREHENSION
 
 #SCRIPT PURPOSE : This should make everything required for Azure VPN. I have no idea.
+#REQUIREMENTS : OpenSSL, and System PATH entry for the OpenSSL/Bin folder.
 
 #LOGGING
 $SCRIPTNAME ="AzureVPNCert"
@@ -52,5 +53,6 @@ openssl x509 -req -days 3650 -in $CLIENTSIGNPATH -CA $ROOTPATH -CAkey $ROOTKEYPA
 
 openssl x509 -in $ROOTPATH -outform der -out $ROOTPATHCER
 certutil -encode $ROOTPATHCER $ROOTPATHBASE64
+
 
 Stop-Transcript
