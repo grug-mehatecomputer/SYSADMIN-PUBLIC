@@ -65,4 +65,17 @@ $results3 = foreach ($group in $mailGroups) {
 }
 $results3 | Export-Csv -Path "$ReportFolder\EmailGroupsMembers.csv" -NoTypeInformation
 
+#Report of all users, email addresses, and proxy address
+Get-ADUser -Filter * -Properties mail, proxyAddresses, displayName |
+    Select-Object `
+        SamAccountName,
+        displayName,
+        mail,
+        @{Name="EmailAliases"; Expression = {
+            ($_.proxyAddresses |
+                Where-Object { $_ -like "smtp:*" } |
+                ForEach-Object { $_.Substring(5) }) -join ";"
+        }} |
+    Export-Csv -Path  "$ReportFolder\Email-ProxyAliases.csv" -NoTypeInformation
+
 Stop-Transcript
