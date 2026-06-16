@@ -18,10 +18,9 @@ $AdminUrl = "https://contoso-admin.sharepoint.com" # Replace with your tenant's 
 $CsvPath = "c:/file/path.csv"# Replace with your CSV file path
 $UserAdmin = "User@contoso.com"# The account getting admin rights
 
-#Connect-SPOService -Url $AdminUrl
+Connect-SPOService -Url $AdminUrl
 
-
-# 4. Import CSV and loop through each site
+#Import CSV and loop through each site
 $Sites = Import-Csv -Path $CsvPath
 
 foreach ($Site in $Sites) {
